@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.android.tvremoteime'
+    compileSdk 34
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId 'com.android.tvremoteime'
+        minSdk 21
+        targetSdk 34
+        versionCode 12
+        versionName "1.4.2-ha"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-project.txt'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    // 解决 lint 引用 R 类问题
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(path: ':ijkplayer')
+    implementation project(path: ':AdbLib')
+    implementation project(path: ':DroidDLNA')
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.annotation:annotation:1.7.0'
+    implementation 'androidx.core:core:1.12.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'com.google.android.material:material:1.11.0'
+}
